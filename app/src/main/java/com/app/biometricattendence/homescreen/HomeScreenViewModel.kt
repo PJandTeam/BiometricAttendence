@@ -1,28 +1,32 @@
-package com.example.myapplication.authentication.login
+package com.app.biometricattendence.homescreen
 
 import android.app.Application
 import android.util.Log
 import androidx.databinding.Bindable
-import androidx.lifecycle.AndroidViewModel
-import com.example.myapplication.authentication.roomdb.RegisterRepository
 import androidx.databinding.Observable
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.app.biometricattendence.roomdb.RegisterRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val repository: RegisterRepository, application: Application) :
+class HomeScreenViewModel(private val repository: RegisterRepository, application: Application) :
     AndroidViewModel(application), Observable {
 
-    val users = repository.users
+    var users = repository.users
+    var dbName = ""
+    var dbEmpId = ""
+    var dbDoB = ""
+    var dbDoj = ""
+    var dbMobile = ""
+    var dbTeam = ""
+    var dbTime = ""
 
     @Bindable
     val inputUsername = MutableLiveData<String?>()
-
-    @Bindable
-    val inputPassword = MutableLiveData<String?>()
 
     private val viewModelJob = Job()
     private val myScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -53,27 +57,26 @@ class LoginViewModel(private val repository: RegisterRepository, application: Ap
         get() = _errorToastInvalidPassword
 
 
-    fun loginButton() {
+    fun getUserData(emp_id: String) {
         myScope.launch {
-            val usersNames = repository.getEmailAddress(inputUsername.value!!)
+            val usersNames = repository.getEmpID(emp_id)
 
             if (usersNames != null) {
-                if (usersNames.password == inputPassword.value) {
-                    inputUsername.value = null
-                    inputPassword.value = null
-                    _navigatetoHomeScreen.value = true
-                    Log.e("ETTSTS","CLICK")
+                dbName = usersNames.name
+                dbEmpId = usersNames.empId
+                dbDoB = usersNames.dob
+                dbDoj = usersNames.doj
+                dbMobile = usersNames.mobile
+                dbTeam = usersNames.team
+                dbTime = usersNames.time.toString()
+                _navigatetoHomeScreen.value = true
+                Log.e("ETTSTS", "CLICK")
 
-                } else {
-                    _errorToastInvalidPassword.value = true
-                }
             } else {
                 _errorToastUsername.value = true
             }
         }
-
     }
-
 
     fun doneNavigatingUserDetails() {
         _navigatetoHomeScreen.value = false

@@ -1,18 +1,12 @@
-package com.example.myapplication.authentication.register
+package com.app.biometricattendence.register
 
 import android.app.Application
-import android.graphics.Color
 import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.widget.FrameLayout
 import androidx.databinding.Bindable
 import androidx.lifecycle.*
 import androidx.databinding.Observable
-import com.example.myapplication.Utils
-import com.example.myapplication.authentication.roomdb.RegisterEntity
-import com.example.myapplication.authentication.roomdb.RegisterRepository
-import com.google.android.material.snackbar.Snackbar
+import com.app.biometricattendence.roomdb.RegisterEntity
+import com.app.biometricattendence.roomdb.RegisterRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -25,24 +19,28 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
         Log.i("MYTAG", "init")
     }
 
-    private var userdata: String? = null
+     var userdata: String? = null
 
     var userDetailsLiveData = MutableLiveData<Array<RegisterEntity>>()
+    val _navigatePopupScreen = MutableLiveData<Boolean>()
 
     @Bindable
-    val inputFirstName = MutableLiveData<String?>()
+    val inputName = MutableLiveData<String?>()
 
     @Bindable
-    val inputLastName = MutableLiveData<String?>()
+    val inputEmpID = MutableLiveData<String?>()
 
     @Bindable
-    val inputEmailAddress = MutableLiveData<String?>()
+    val inputDoB = MutableLiveData<String?>()
 
     @Bindable
-    val inputPassword = MutableLiveData<String?>()
+    val inputDoJ = MutableLiveData<String?>()
 
     @Bindable
-    val inputConPassword = MutableLiveData<String?>()
+    val inputMobileNumber = MutableLiveData<String?>()
+
+    @Bindable
+    val inputTeam = MutableLiveData<String?>()
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -64,11 +62,11 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
         get() = _errorToastUsername
 
 
-    fun submitButton() {
+    fun submitButton(time:Long) {
 
             uiScope.launch {
 //            withContext(Dispatchers.IO) {
-                val usersNames = repository.getEmailAddress(inputEmailAddress.value!!)
+                val usersNames = repository.getEmpID(inputEmpID.value!!)
                 Log.i("MYTAG", usersNames.toString() + "------------------")
                 if (usersNames != null) {
                     _errorToastUsername.value = true
@@ -76,19 +74,23 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
                 } else {
                     Log.i("MYTAG", userDetailsLiveData.value.toString() + "ASDFASDFASDFASDF")
                     Log.i("MYTAG", "OK im in")
-                    val firstName = inputFirstName.value!!
-                    val lastName = inputLastName.value!!
-                    val email = inputEmailAddress.value!!
-                    val password = inputPassword.value!!
+                    val name = inputName.value!!
+                    val empId = inputEmpID.value!!
+                    val dob = inputDoB.value!!
+                    val doj = inputDoJ.value!!
+                    val mobile = inputMobileNumber.value!!
+                    val team = inputTeam.value!!
                     Log.i("MYTAG", "insidi Sumbit")
-                    insert(RegisterEntity(email, firstName, lastName, password))
-                    inputFirstName.value = null
-                    inputLastName.value = null
-                    inputEmailAddress.value = null
-                    inputPassword.value = null
+                    insert(RegisterEntity(name,empId,dob,doj,mobile,team,time))
+                    inputName.value = null
+                    inputEmpID.value = null
+                    inputDoB.value = null
+                    inputDoJ.value = null
+                    inputMobileNumber.value = null
+                    inputTeam.value = null
                     _navigateto.value = true
-                    Log.i("Registerrrrr", email)
-                    Log.i("Registerrrrr", password)
+                    _navigatePopupScreen.value = true
+                    userdata = empId
                 }
             }
     }
@@ -117,8 +119,8 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
         repository.insert(user)
     }
 
-    private fun getEmail(email: String): Job = viewModelScope.launch {
-        repository.getEmailAddress(email)
+    private fun getEmpID(empId: String): Job = viewModelScope.launch {
+        repository.getEmpID(empId)
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

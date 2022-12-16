@@ -1,9 +1,9 @@
-package com.example.myapplication.authentication.register
+package com.app.biometricattendence.register
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.authentication.roomdb.RegisterRepository
+import com.app.biometricattendence.roomdb.RegisterRepository
 
 class RegisterViewModelFactory(
     private  val repository: RegisterRepository,

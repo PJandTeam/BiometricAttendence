@@ -1,29 +1,29 @@
-package com.example.myapplication.authentication.roomdb
+package com.app.biometricattendence.roomdb
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [RegisterEntity::class], version = 2, exportSchema = false)
+@Database(entities = [RegisterEntity::class], version = 1, exportSchema = false)
 abstract class RegisterDatabase: RoomDatabase() {
 
     abstract val registerDao: RegisterDao
 
     companion object {
         @Volatile
-        private var INSTANCE:RegisterDatabase? =null
+        private var INSTANCE: RegisterDatabase? =null
 
-        fun getInstance(context: Context):RegisterDatabase{
+        fun getInstance(context: Context): RegisterDatabase {
             synchronized(this){
                 var instance = INSTANCE
 
                 if (instance==null){
                     instance= Room.databaseBuilder(
-                        context.applicationContext,RegisterDatabase::class.java,"database")
+                        context.applicationContext, RegisterDatabase::class.java,"database")
                         .fallbackToDestructiveMigration()
                         .build()
-                    INSTANCE=instance
+                    INSTANCE =instance
                 }
                 return instance
             }

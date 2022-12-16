@@ -1,4 +1,4 @@
-package com.example.myapplication.authentication.roomdb
+package com.app.biometricattendence.roomdb
 
 class RegisterRepository(private val dao: RegisterDao) {
 
@@ -7,8 +7,8 @@ class RegisterRepository(private val dao: RegisterDao) {
         return dao.insert(user)
     }
 
-    suspend fun getEmailAddress(emailAddress: String):RegisterEntity?{
-        return dao.getEmailAddress(emailAddress)
+    suspend fun getEmpID(empId: String): RegisterEntity?{
+        return dao.getEmpId(empId)
     }
     //suspend fun deleteAll(): Int {
     //    return dao.deleteAll()
