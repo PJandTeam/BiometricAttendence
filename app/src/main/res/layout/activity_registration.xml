@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mydatabaseapp.register.RegisterFragment">
+
+    <data>
+
+        <variable
+            name="myViewModel"
+            type="com.example.myapplication.authentication.register.RegistrationViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".authentication.register.RegistrationActivity">
+
+            <ImageView
+                android:id="@+id/imgRegisterBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="30dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/grey" />
+
+            <ImageView
+                android:id="@+id/imgRegisterLogo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/app_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtRegisterHead"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/alfa_slab_one"
+                android:text="Create Account"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgRegisterLogo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegisterFirstName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtRegisterHead">
+
+                <EditText
+                    android:id="@+id/edtRegisterFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/allerta"
+                    android:hint="First Name"
+                    android:inputType="text|textCapSentences"
+                    android:capitalize="sentences"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="10dp"
+                    android:text="@={myViewModel.inputFirstName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_baseline_person_outline_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterFirstName"
+                app:layout_constraintStart_toStartOf="@id/tilRegisterFirstName"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterFirstName"
+                app:tint="@color/grey" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegisterLastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilRegisterFirstName">
+
+                <EditText
+                    android:id="@+id/edtRegisterLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/allerta"
+                    android:hint="Last Name"
+                    android:inputType="text|textCapSentences"
+                    android:capitalize="sentences"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="10dp"
+                    android:text="@={myViewModel.inputLastName}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_baseline_person_outline_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterLastName"
+                app:layout_constraintStart_toStartOf="@id/tilRegisterLastName"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterLastName"
+                app:tint="@color/grey" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegisterEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilRegisterLastName">
+
+                <EditText
+                    android:id="@+id/edtRegisterEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/allerta"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="10dp"
+                    android:text="@={myViewModel.inputEmailAddress}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_outline_email_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterEmail"
+                app:layout_constraintStart_toStartOf="@id/tilRegisterEmail"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterEmail"
+                app:tint="@color/grey" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegisterPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilRegisterEmail">
+
+                <EditText
+                    android:id="@+id/edtRegisterPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/allerta"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="35dp"
+                    android:text="@={myViewModel.inputPassword}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imgPassVisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_visibility_off_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterPassword"
+                app:layout_constraintEnd_toEndOf="@id/tilRegisterPassword"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterPassword"
+                app:tint="@color/grey" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_outline_lock_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterPassword"
+                app:layout_constraintStart_toStartOf="@id/tilRegisterPassword"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterPassword"
+                app:tint="@color/grey" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilRegisterConPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                app:boxBackgroundMode="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilRegisterPassword">
+
+                <EditText
+                    android:id="@+id/edtRegisterConPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/allerta"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword"
+                    android:text="@={myViewModel.inputConPassword}"
+                    android:paddingStart="35dp"
+                    android:paddingEnd="35dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imgConPassVisibility"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_baseline_visibility_off_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterConPassword"
+                app:layout_constraintEnd_toEndOf="@id/tilRegisterConPassword"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterConPassword"
+                app:tint="@color/grey" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/ic_outline_lock_24"
+                app:layout_constraintBottom_toBottomOf="@id/tilRegisterConPassword"
+                app:layout_constraintStart_toStartOf="@id/tilRegisterConPassword"
+                app:layout_constraintTop_toTopOf="@id/tilRegisterConPassword"
+                app:tint="@color/grey" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llRegisterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/shape_button_background"
+                android:orientation="horizontal"
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilRegisterConPassword">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/allerta"
+                    android:text="Register"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/ic_baseline_arrow_right_alt_24"
+                    app:tint="@color/white" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/txtDontHaveAcc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/allerta"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/llRegisterButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
