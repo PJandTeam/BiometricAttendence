@@ -1,5 +1,6 @@
 package com.app.biometricattendence.homescreen
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -33,11 +34,11 @@ class HomeScreenActivity : AppCompatActivity() {
     private var fullStatusPopup: android.app.AlertDialog? = null
     private var id: String? = null
     private lateinit var homeScreenViewModel: HomeScreenViewModel
-    var sundayCalender: Calendar? = null
-    var satDayCalender: Calendar? = null
-    var mondayCalender: Calendar? = null
-    var fridayCalender: Calendar? = null
-    var todayCalender: Calendar? = null
+    private var sundayCalender: Calendar? = null
+    private var satDayCalender: Calendar? = null
+    private var mondayCalender: Calendar? = null
+    private var fridayCalender: Calendar? = null
+    private var todayCalender: Calendar? = null
     private val timeNine = LocalTime.parse("09:00:00")
     private val timeTen = LocalTime.parse("10:00:00")
     private val timeTenFif = LocalTime.parse("10:15:00")
@@ -46,7 +47,7 @@ class HomeScreenActivity : AppCompatActivity() {
     private val timeFour = LocalTime.parse("16:00:00")
     private val timeFourFif = LocalTime.parse("16:15:00")
     private val timeSix = LocalTime.parse("18:00:00")
-    var allowDateSave = false
+    private var allowDateSave = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +80,7 @@ class HomeScreenActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showFullStatusPopup() {
         if (fullStatusPopup?.isShowing == true) {
             fullStatusPopup?.hide()
@@ -201,6 +203,7 @@ class HomeScreenActivity : AppCompatActivity() {
     ): BiometricPrompt {
         val executor = ContextCompat.getMainExecutor(context)
         val callback = object : BiometricPrompt.AuthenticationCallback() {
+            @SuppressLint("RestrictedApi")
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
                 when (errorCode) {
@@ -255,6 +258,7 @@ class HomeScreenActivity : AppCompatActivity() {
             .build()
     }
 
+    @SuppressLint("SetTextI18n")
     fun showStatusPopup() {
         if (statusPopup?.isShowing == true) {
             statusPopup?.hide()
@@ -285,7 +289,7 @@ class HomeScreenActivity : AppCompatActivity() {
             textGreetings.text = ", Welcome "
             textName.text = homeScreenViewModel.dbName
             textStatus.text = "No working day"
-        }else{
+        } else {
             //9am to 10:30am
             if (now.isAfter(timeNine) && now.isBefore(timeTen)) {
                 textGreetings.text = "Good Morning, Welcome "
