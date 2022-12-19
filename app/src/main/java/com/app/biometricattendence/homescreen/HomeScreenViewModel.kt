@@ -7,6 +7,8 @@ import androidx.databinding.Observable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.app.biometricattendence.roomdb.RegisterEntity
 import com.app.biometricattendence.roomdb.RegisterRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +26,7 @@ class HomeScreenViewModel(private val repository: RegisterRepository, applicatio
     var dbMobile = ""
     var dbTeam = ""
     var dbTime = ""
+    var dbTotalWorkedHours = ""
 
     @Bindable
     val inputUsername = MutableLiveData<String?>()
@@ -69,6 +72,7 @@ class HomeScreenViewModel(private val repository: RegisterRepository, applicatio
                 dbMobile = usersNames.mobile
                 dbTeam = usersNames.team
                 dbTime = usersNames.time.toString()
+                dbTotalWorkedHours = usersNames.total_worked_hours.toString()
                 _navigatetoHomeScreen.value = true
                 Log.e("ETTSTS", "CLICK")
 
@@ -99,6 +103,9 @@ class HomeScreenViewModel(private val repository: RegisterRepository, applicatio
         Log.i("MYTAG", "Done taoasting ")
     }
 
+    fun insert(user: RegisterEntity): Job = viewModelScope.launch {
+        repository.insert(user)
+    }
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
     }

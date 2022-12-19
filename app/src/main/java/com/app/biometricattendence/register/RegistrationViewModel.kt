@@ -81,7 +81,7 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
                     val mobile = inputMobileNumber.value!!
                     val team = inputTeam.value!!
                     Log.i("MYTAG", "insidi Sumbit")
-                    insert(RegisterEntity(name,empId,dob,doj,mobile,team,time))
+                    insert(RegisterEntity(name,empId,dob,doj,mobile,team,time,0))
                     inputName.value = null
                     inputEmpID.value = null
                     inputDoB.value = null

@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "userRegister")
 data class RegisterEntity(
-    @PrimaryKey
     @ColumnInfo(name = "name")
     var name: String,
+    @PrimaryKey
     @ColumnInfo(name = "empId")
-    var empId: String,
+    var empId: String = "",
     @ColumnInfo(name = "dob")
     var dob: String,
     @ColumnInfo(name = "doj")
@@ -20,5 +20,7 @@ data class RegisterEntity(
     @ColumnInfo(name = "team")
     var team: String,
     @ColumnInfo(name = "time")
-    var time: Long
+    var time: Long,
+    @ColumnInfo(name = "total_worked_hours")
+    var total_worked_hours: Int = 0
     )
