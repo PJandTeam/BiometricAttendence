@@ -19,7 +19,7 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
         Log.i("MYTAG", "init")
     }
 
-     var userdata: String? = null
+    var userdata: String? = null
 
     var userDetailsLiveData = MutableLiveData<Array<RegisterEntity>>()
     val _navigatePopupScreen = MutableLiveData<Boolean>()
@@ -45,82 +45,45 @@ class RegistrationViewModel(private val repository: RegisterRepository, applicat
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-
     private val _navigateto = MutableLiveData<Boolean>()
-
-    val navigateto: LiveData<Boolean>
-        get() = _navigateto
-
-    private val _errorToast = MutableLiveData<Boolean>()
-
-    val errotoast: LiveData<Boolean>
-        get() = _errorToast
 
     private val _errorToastUsername = MutableLiveData<Boolean>()
 
-    val errotoastUsername: LiveData<Boolean>
-        get() = _errorToastUsername
+    fun submitButton(time: Long) {
 
-
-    fun submitButton(time:Long) {
-
-            uiScope.launch {
+        uiScope.launch {
 //            withContext(Dispatchers.IO) {
-                val usersNames = repository.getEmpID(inputEmpID.value!!)
-                Log.i("MYTAG", usersNames.toString() + "------------------")
-                if (usersNames != null) {
-                    _errorToastUsername.value = true
-                    Log.i("MYTAG", "Inside if Not null")
-                } else {
-                    Log.i("MYTAG", userDetailsLiveData.value.toString() + "ASDFASDFASDFASDF")
-                    Log.i("MYTAG", "OK im in")
-                    val name = inputName.value!!
-                    val empId = inputEmpID.value!!
-                    val dob = inputDoB.value!!
-                    val doj = inputDoJ.value!!
-                    val mobile = inputMobileNumber.value!!
-                    val team = inputTeam.value!!
-                    Log.i("MYTAG", "insidi Sumbit")
-                    insert(RegisterEntity(name,empId,dob,doj,mobile,team,time,0))
-                    inputName.value = null
-                    inputEmpID.value = null
-                    inputDoB.value = null
-                    inputDoJ.value = null
-                    inputMobileNumber.value = null
-                    inputTeam.value = null
-                    _navigateto.value = true
-                    _navigatePopupScreen.value = true
-                    userdata = empId
-                }
+            val usersNames = repository.getEmpID(inputEmpID.value!!)
+            Log.i("MYTAG", usersNames.toString() + "------------------")
+            if (usersNames != null) {
+                _errorToastUsername.value = true
+                Log.i("MYTAG", "Inside if Not null")
+            } else {
+                Log.i("MYTAG", userDetailsLiveData.value.toString() + "ASDFASDFASDFASDF")
+                Log.i("MYTAG", "OK im in")
+                val name = inputName.value!!
+                val empId = inputEmpID.value!!
+                val dob = inputDoB.value!!
+                val doj = inputDoJ.value!!
+                val mobile = inputMobileNumber.value!!
+                val team = inputTeam.value!!
+                Log.i("MYTAG", "insidi Sumbit")
+                insert(RegisterEntity(name, empId, dob, doj, mobile, team, time, 0))
+                inputName.value = null
+                inputEmpID.value = null
+                inputDoB.value = null
+                inputDoJ.value = null
+                inputMobileNumber.value = null
+                inputTeam.value = null
+                _navigateto.value = true
+                _navigatePopupScreen.value = true
+                userdata = empId
             }
-    }
-
-
-    override fun onCleared() {
-        super.onCleared()
-    }
-
-    fun doneNavigating() {
-        _navigateto.value = false
-        Log.i("MYTAG", "Done navigating ")
-    }
-
-    fun donetoast() {
-        _errorToast.value = false
-        Log.i("MYTAG", "Done taoasting ")
-    }
-
-    fun donetoastUserName() {
-        _errorToast.value = false
-        Log.i("MYTAG", "Done taoasting  username")
+        }
     }
 
     private fun insert(user: RegisterEntity): Job = viewModelScope.launch {
         repository.insert(user)
-    }
-
-    private fun getEmpID(empId: String): Job = viewModelScope.launch {
-        repository.getEmpID(empId)
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {
