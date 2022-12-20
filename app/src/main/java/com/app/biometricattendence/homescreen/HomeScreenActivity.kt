@@ -29,6 +29,7 @@ import java.time.ZoneId
 import java.util.*
 
 class HomeScreenActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityHomeScreenBinding
     private var statusPopup: android.app.AlertDialog? = null
     private var fullStatusPopup: android.app.AlertDialog? = null
@@ -88,6 +89,7 @@ class HomeScreenActivity : AppCompatActivity() {
         val popUpView = LayoutInflater.from(this).inflate(R.layout.inflate_full_status_popup, null)
         val builder = android.app.AlertDialog.Builder(this)
         builder.setView(popUpView)
+
         fullStatusPopup = builder.create()
         fullStatusPopup?.setCanceledOnTouchOutside(true)
         mondayCalender = Calendar.getInstance()
@@ -182,10 +184,7 @@ class HomeScreenActivity : AppCompatActivity() {
                 val data: Intent? = result.data
                 id = data?.getStringExtra("EMP_ID")
                 homeScreenViewModel.getUserData(id.toString())
-
-                val editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit()
-                editor.putString("id", id)
-                editor.apply()
+                getSharedPreferences("STORE_ID", MODE_PRIVATE).edit().putString("ID", id).apply()
             }
         }
 
@@ -209,17 +208,17 @@ class HomeScreenActivity : AppCompatActivity() {
                 when (errorCode) {
                     BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
                         Snackbar.make(binding.llFingerHere,
-                            "No data found, please register",
+                            "Authentication failed",
                             Snackbar.LENGTH_SHORT).show()
                     }
                     BiometricPrompt.ERROR_CANCELED -> {
                         Snackbar.make(binding.llFingerHere,
-                            "No data found, please register",
+                            "Authentication failed",
                             Snackbar.LENGTH_SHORT).show()
                     }
                     BiometricConstants.ERROR_USER_CANCELED -> {
                         Snackbar.make(binding.llFingerHere,
-                            "No data found, please register",
+                            "Authentication failed",
                             Snackbar.LENGTH_SHORT).show()
                     }
                     else -> {}
@@ -228,8 +227,8 @@ class HomeScreenActivity : AppCompatActivity() {
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                val prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE)
-                id = prefs.getString("id", "")
+                val prefs = getSharedPreferences("STORE_ID", MODE_PRIVATE)
+                id = prefs.getString("ID", "")
 
                 homeScreenViewModel.getUserData(id.toString())
                 Handler(Looper.getMainLooper()).postDelayed({
